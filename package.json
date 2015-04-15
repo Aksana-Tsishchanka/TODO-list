@@ -1,0 +1,24 @@
+{
+  "name": "notes-app",
+  "version": "0.0.1",
+  "description": "Simple notes application",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "notes",
+    "epam",
+    "interview"
+  ],
+  "author": "Zoltan Makranczi",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.9.0",
+    "express": "^4.9.5",
+    "less-middleware": "^1.0.4",
+    "node-persist": "0.0.2",
+    "shortid": "^2.0.1",
+    "xss": "^0.1.12"
+  }
+}

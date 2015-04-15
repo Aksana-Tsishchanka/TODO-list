@@ -1,0 +1,163 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri Light;}{\f1\fswiss\fprq2\fcharset0 Calibri;}{\f2\fnil\fcharset0 Calibri;}{\f3\fnil\fcharset0 Consolas;}{\f4\froman\fprq2\fcharset2 Symbol;}{\f5\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red46\green116\blue181;\red31\green77\blue120;}
+{\stylesheet{ Normal;}{\s1 heading 1;}{\s2 heading 2;}{\s3 heading 3;}}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\keep\keepn\s1\sb240\sl360\slmult1\cf1\f0\fs48 Notes App\par
+\pard\keep\keepn\s2\sb40\sl360\slmult1\fs36 Background and General\par
+\pard\sa160\sl360\slmult1\cf0\f1\fs22 The purpose of the Notes App is to be able to handle user TODOs in form of a post-it. The note has a title (can be blank), a color (yellow, green, blue or red; yellow is the default) and 0 or more items. Items can be marked as done (with a checkbox). If a checkbox is checked (which means that the item is done), the the label corresponding to the item must be crossed out (example: \strike crossed out\strike0 ). If a checkbox is unchecked (which means that the item is not done), the label corresponding to the item must NOT be crossed out.\par
+For the sake of simplicity, every user has its own instance and no login is required. From the client\rquote s perspective, it\rquote s a \b single page app\b0 .\par
+\pard\keep\keepn\s2\sb40\sl360\slmult1\cf1\f0\fs36 Terms\cf0\f1\fs22\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s2\fi-360\li720\sb40\sl360\slmult1\b Default view\b0  \endash  the view that\rquote s presented on \i 1-Landing\b\i0\par
+{\pntext\f5\'B7\tab}Label\b0  - refers to the text of an item\b\par
+{\pntext\f5\'B7\tab}Status\b0  - this refers to the status of a certain item. It can be done (checked) - in this case the label has to be crossed out. It can be undone, in which case it's unchecked and the label mustn't be crossed out.\b\par
+{\pntext\f5\'B7\tab}Autosave\b0  - applies for all editable fields inside the note. \b\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s2\fi-360\li1080\sb40\sl360\slmult1\b0 For checkboxes, the status must be saved when the checkbox is checked\b\par
+\b0{\pntext\f5\'B7\tab}For inputs, this means that when the field loses focus, the text inside it must be saved automatically. (You may even handle the case when the input loses focus with nothing changed - which means that no save action is necessary)\b\par
+\b0{\pntext\f5\'B7\tab}After deleting an item, it must be deleted instantly\b\par
+\pard\keep\keepn\s2\sb40\sl360\slmult1\cf1\b0\f0\fs36 Features\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\fs28 Note display\par
+\pard\sa160\sl360\slmult1\cf0\f1\fs18 Reference design: \i 1-Landing-Default\i0\par
+\fs22 The application must be able to display the notes that's in the database.\par
+On page load, the application must load the note from the server and display it (please see the corresponding designs). This means that the title must be displayed, each item must be listed and the note must be colored to the color that's coming from the database. If an item in the list is done, then the checkbox must be checked (and of course, the label must be crossed out). Functionalities will be described in detail below. \par
+Design notes: \par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa160\sl360\slmult1 The text fields mustn't look like text fields, but like on the designs attached\par
+{\pntext\f5\'B7\tab}The note must have a red pin on the top, centered\par
+{\pntext\f5\'B7\tab}The note must have a shadow around it (CSS3). The shadow mustn't be shifted vertically or horizontally; it must be blurred in 20 pixels and spread in 2 pixels. It's color must be #444\par
+{\pntext\f5\'B7\tab}If an item label doesn't fit in it's container, then it should be signaled with an ellipsis sign (ellipsis is "...")\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\f0\fs28 Item creation\par
+\pard\sa160\sl360\slmult1\cf0\f1\fs18 Reference design: \i 2-Create\i0\par
+\fs22 Below the notes, there must be a button (#add-item). If a user clicks on this button, a new item must be appended to items (on the last position). The item to be added requires an ID - this can be requested from the server (please see the "Server API" chapter). Once you have the response from the server, you can assemble the HTML nodes (please see the "Templating" chapter below) and append it. The new item must have all the functionalities available (must be able to change status, edit label and delete the item itself). All these changes will have to be saved automatically and instantly.\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\f0\fs28 Item status editing\par
+\pard\sa160\sl360\slmult1\cf0\f1\fs18 Reference design: \i 3-Status-Edit\par
+\i0\fs22 It must be possible to change an item's status by checking or unchecking the checkbox in front of it. When the checkbox is checked (the item's status is done), the label must be crossed out. Changing an item's status in the browser must be saved instantly in the database (please see the "Server API" chapter).\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\f0\fs28 Title and item label editing\par
+\pard\sa160\sl360\slmult1\cf0\f1\fs18 Reference design: \i 4-Title-and-Label-editing\par
+\i0\fs22 It must be possible to edit the note's title and any item on it. The change must be autosaved.\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\f0\fs28 Item deletion\par
+\cf0\f1\fs18 Reference design: \i -\par
+\pard\sa160\sl360\slmult1\i0\fs22 Every item must have a delete icon on it's right side (please see the designs). Clicking on it must delete the note from the database instantly. If the deletion was successful, the item must be removed from the note.\par
+Note:\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa160\sl360\slmult1 No confirmation is needed before deletion\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\f0\fs28 Note color change\par
+\cf0\f1\fs18 Reference design: \i -\cf2\i0\f0\fs28\par
+\pard\keep\keepn\s2\sb40\sl360\slmult1\cf0\fs22 It must be possible to change the note's color using the colored squares in the bottom right corner. Clicking on a color must change the color in the database. If successful, the color must be changed on the user interface (the colors are already defined in the CSS). If the user clicks on the color that's already set for the note, it's not necessary to interact with the server.\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\fs28 Toast\par
+\cf0\f1\fs18 Reference design: \i 5-Toast\par
+\pard\keep\keepn\s2\sb40\sl360\slmult1\i0\f0\fs22 Every server interaction's outcome (either success of failure) must be shown in the UI in a component called "toast". This is a little notification in the bottom right corner of the screen, no matter the width, height, and the scroll position. For normal messages it must have the default styling, for error messages it must have a red background. It must be displayed for 2 seconds, then it has to be removed/hidden (whichever you choose). \par
+The toast must contain meaningful messages about the happenings; defining these is up to you.\par
+Animation (not mandatory, but nice to have)\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s2\fi-360\li720\sb40\sl360\slmult1 The toast must be 80% transparent when showing\cf1\fs26\par
+\cf0\fs22{\pntext\f5\'B7\tab}Animate the transparency (using CSS3) when showing or hiding the element\cf1\fs26\par
+\pard\keep\keepn\s2\sb40\sl360\slmult1\fs36 Technical details\f1\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\f0\fs28 File hierarchy\par
+\cf0\f2\fs22 All the resources that you have to work with are located under the \f3 web\f2  folder. Everything inside this folder is served statically, i.e. no processing is made on the server (this is as designed).\par
+\cf2\f0\fs28 Setting up the server\par
+\cf0\f2\fs22 For the first time, you have to run the following commands in the project's folder (D:\\interview\\ui\\notes-app-single):\par
+\f3 npm install\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\f0\fs28 Starting the server\par
+\pard\fi-360\li720\sa160\sl360\slmult1\cf0\f1\fs22 1.\tab Start a command line / terminal\par
+2.\tab Navigate to the project folder\par
+3.\tab Type \f3 node server.js\i\par
+\pard\sa160\sl360\slmult1\i0\f1 There are a number of options available which can be set in command line when starting the server:\par
+\pard{\pntext\f1 1.\tab}{\*\pn\pnlvlbody\pnf1\pnindent0\pnstart1\pndec{\pntxta.}}
+\fi-360\li720\sa160\sl360\slmult1\f3 init \f1\endash  clears everything from the database and adds some test data in it\par
+\f3{\pntext\f1 2.\tab}fresh\f2  - deletes everything from the database and starts the server having an empty note in the database\par
+\pard\sa160\sl360\slmult1\f1 Syntax: \f3 node server.js <command line argument>\par
+\f2 The server will be running on the local machine on port 3000.\f3\par
+\cf2\f0\fs28 Note object structure\par
+\pard\sa160\sl240\slmult1\cf0\b\f2\fs20 Note\par
+\b0\f3\{\par
+\tab "title":\tab "...",\tab // String\par
+\tab "color":\tab "...",\tab // String (values: yellow, blue, green, red)\par
+\tab "items": \tab [...],\tab // Array of Items\par
+\}\par
+\b\f2\fs22 Item\par
+\b0\f3\fs20\{\par
+\tab "id":\tab\tab "...", \tab // String\par
+\tab "label":\tab "...", \tab // String\par
+\tab "isDone":\tab true/false\tab // boolean\par
+\}\par
+\f2\fs22 Note: fields not enlisted above don't need the candidate's attention\f3\fs20\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\f0\fs28 Server API\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li720\sb40\sl360\slmult1\cf0\b\f3\fs22 /note/get\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1080\sb40\sl360\slmult1\b0\f1 Method: HTTP GET\par
+{\pntext\f5\'B7\tab}Input: -\par
+{\pntext\f5\'B7\tab}Output: the note object if found; HTTP 404 otherwise\par
+{\pntext\f5\'B7\tab}Description: Returns the note from the database\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li720\sb40\sl360\slmult1\b\f3 /note/newItem\b0\f1\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1080\sb40\sl360\slmult1 Method: HTTP GET\par
+{\pntext\f5\'B7\tab}Input: -\par
+{\pntext\f5\'B7\tab}Output: a new, empty item, having only an ID (with HTTP 200), or HTTP 500 if anything went wrong\par
+{\pntext\f5\'B7\tab}Description: Returns a new, empty item, having only an ID. The item will be inserted in the database instantly\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li720\sb40\sl360\slmult1\b\f3 /note/:id/updateItemIsDone\b0\f1\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1080\sb40\sl360\slmult1 Method: HTTP POST\par
+{\pntext\f5\'B7\tab}Input:\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1440\sb40\sl360\slmult1 id\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1800\sb40\sl360\slmult1 Type: String\par
+{\pntext\f5\'B7\tab}Path parameter\par
+{\pntext\f5\'B7\tab}Description: The item's ID, whose status must be updated\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1440\sb40\sl360\slmult1 isDone\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1800\sb40\sl360\slmult1 Type: boolean\par
+{\pntext\f5\'B7\tab}Form parameter (simple key=value pair, just like at forms)\par
+{\pntext\f5\'B7\tab}Description: The item's status to be set\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1080\sb40\sl360\slmult1 Output: The updated item (with HTTP 200), or HTTP 500 if anything went wrong.\par
+{\pntext\f5\'B7\tab}Description: Saves the updated item to the database and returns the updated item\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li720\sb40\sl360\slmult1\b\f3 /note/updateTitle\b0\f1\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1080\sb40\sl360\slmult1 Method: HTTP POST\par
+{\pntext\f5\'B7\tab}Input:\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1440\sb40\sl360\slmult1 value\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1800\sb40\sl360\slmult1 Type: String\par
+{\pntext\f5\'B7\tab}Form parameter (simple key=value pair, just like at forms)\par
+{\pntext\f5\'B7\tab}Description: The new title\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1080\sb40\sl360\slmult1 Output: HTTP 200 if successful, 500 otherwise\par
+{\pntext\f5\'B7\tab}Description: Updates the title in the database with the value provided as a parameter\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li720\sb40\sl360\slmult1\b\f3 /note/:id/updateItem\b0\f1\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1080\sb40\sl360\slmult1 Method: HTTP POST\par
+{\pntext\f5\'B7\tab}Input:\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1440\sb40\sl360\slmult1 id\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1800\sb40\sl360\slmult1 Type: String\par
+{\pntext\f5\'B7\tab}Path parameter\par
+{\pntext\f5\'B7\tab}Description: The item's ID, whose label must be updated\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1440\sb40\sl360\slmult1 value\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1800\sb40\sl360\slmult1 Type: String\par
+{\pntext\f5\'B7\tab}Form parameter (simple key=value pair, just like at forms)\par
+{\pntext\f5\'B7\tab}Description: The item's new label\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1080\sb40\sl360\slmult1 Output: HTTP 200 if successful, 500 otherwise\par
+{\pntext\f5\'B7\tab}Description: Updates a given item's label in the database\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li720\sb40\sl360\slmult1\b\f3 /note/:id/delete\b0\f1\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1080\sb40\sl360\slmult1 Method: HTTP POST\par
+{\pntext\f5\'B7\tab}Input:\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1440\sb40\sl360\slmult1 id\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1800\sb40\sl360\slmult1 Type: String\par
+{\pntext\f5\'B7\tab}Path parameter\par
+{\pntext\f5\'B7\tab}Description: The item's ID, which has to be deleted\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1080\sb40\sl360\slmult1 Output: HTTP 200 if successful, 500 otherwise\par
+{\pntext\f5\'B7\tab}Description: Deletes the item with the given ID\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li720\sb40\sl360\slmult1\b\f3 /note/updateColor\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1080\sb40\sl360\slmult1\b0\f1 Method: HTTP POST\par
+{\pntext\f5\'B7\tab}Input: -\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1440\sb40\sl360\slmult1 color\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1800\sb40\sl360\slmult1 Type: String\par
+{\pntext\f5\'B7\tab}Form parameter (simple key=value pair, just like at forms)\par
+{\pntext\f5\'B7\tab}Description: the color that has to be set for the note\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li1080\sb40\sl360\slmult1 Output: -\par
+{\pntext\f5\'B7\tab}Description: Updates a notes color to the given color. If the color is not a valid color, then the default color will be set\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\f0\fs28 Templating\par
+\cf0\f1\fs22 Handlebars templates have been set up for your convenience. It makes rendering much easier. The templates can be found in the \f3 index.html\f1  file and the related JS in \f3 /assets/js/template-manager.js\f2 . You can use this to render the note or individual items.\par
+Usage:\par
+\fs20 TemplateManager.applyNoteTemplate(note); // returns the note's HTML (includes postprocessing)\par
+TemplateManager.applyItemTemplate(item); // returns the item's HTML (includes postprocessing)\par
+\fs22 Note:\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li720\sb40\sl360\slmult1 wrap the function call inside $(...) if you want to use it as a jQuery object\cf2\par
+\cf0{\pntext\f5\'B7\tab}every dependency has been set up, it's working as is - no modifications needed\cf2\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\f0\fs28 Browser support\par
+\pard\fi-360\li720\sa160\sl360\slmult1\cf0\f4\fs22\'b7\tab\f1 Chrome (latest)\par
+\f4\'b7\tab\f1 Firefox (latest)\par
+\f4\'b7\tab\f1 IE9+\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\f0\fs28 Out of scope\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li720\sb40\sl360\slmult1\cf0\f1\fs22 Handling the case in which the JavaScript is turned off in the user\rquote s browser\lang9\f2\par
+{\pntext\f5\'B7\tab}Any server-related change is out of scope and unnecessary\lang1033\f1\par
+\pard\keep\keepn\s3\sb40\sl360\slmult1\cf2\f0\fs36 Notes\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\keep\keepn\s3\fi-360\li720\sb40\sl360\slmult1\cf0\lang9\f2\fs22 AJAX requests shouldn't be cached\par
+{\pntext\f5\'B7\tab}The webpage should look like the design images in the "design" folder\par
+}
+ 

@@ -1,0 +1,21 @@
+.toast {
+    -webkit-transition: opacity 400ms;
+    transition: opacity 400ms;
+
+    color: #000;
+    
+    background-color: #aaa;
+
+    font-size: .95em;
+    padding: 10px 16px;
+}
+
+.toast.error {
+    background-color: #f40000;
+    color: #fff;
+    font-weight: 700;
+}
+
+.toast.active {
+    
+}

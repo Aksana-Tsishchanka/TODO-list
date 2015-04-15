@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+
+    <title>MyNotes</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Fjord+One' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two" />
+
+    <link rel="stylesheet" href="/assets/css/toast.css" />
+    <link rel="stylesheet" href="/assets/css/notes.css" />
+</head>
+<body>
+    <div class="container"></div>
+    <script type="text/javascript" src="/assets/js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/assets/js/lib/handlebars-v2.0.0.js"></script>
+    <script type="text/javascript" src="/assets/js/toast.js"></script>
+    <script type="text/javascript" src="/assets/js/template-manager.js"></script>
+    <script type="text/javascript" src="/assets/js/notes.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //this function will be executed when the DOM is ready
+            
+            //initialize the template manager
+            TemplateManager.init();
+            
+            //initialize toast service
+            Toast.init();
+            
+            //initialize the notes application
+            NotesApp.init();
+        });
+    </script>
+    <script id="note-template" type="text/x-handlebars-template">
+        <div data-color="{{color}}" class="note {{color}}">
+            <span class="pin sprite"></span>
+            <input class="title" data-role="title" name="title" type="text" value="{{title}}" placeholder="Title..." />
+            <ul class="items">
+            {{#each items}}
+                {{> item}}
+            {{/each}}
+            </ul>
+            <button id="add-item" class="add-item" title="Add item">+</button>
+            <ul class="color-chooser">
+                <li data-color="yellow" class="yellow faded" title="Yellow"></li>
+                <li data-color="green" class="green faded" title="Green"></li>
+                <li data-color="blue" class="blue faded" title="Blue"></li>
+                <li data-color="red" class="red faded" title="Red"></li>
+            </ul>
+        </div>
+    </script>
+    <script id="item-partial" type="text/x-handlebars-template">
+        <li data-id="{{id}}">
+            <input type="checkbox" {{#if isDone}}checked{{/if}} />
+            <input type="text" data-role="item" value="{{label}}" placeholder="Add item..." />
+            <a href="#" class="delete sprite faded FIR" title="Delete item">Delete item</a>
+        </li>
+    </script>
+</body>
+</html>

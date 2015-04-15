@@ -1,0 +1,106 @@
+body,
+input {
+    font-family: 'Shadows Into Light Two', 'Fjord One', 'Arial', 'Verdana', serif;
+    font-size: 16px;
+}
+
+.FIR {
+    overflow: hidden;
+    text-indent: -3000px;
+    position: absolute;
+}
+
+.container {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2em 1em;
+}
+
+.note {
+    padding: 2.6em 2.2em 2.6em 2.2em;
+    position: relative;
+}
+
+.note.yellow {
+    background-color: #EEF2A5;
+}
+
+.note.green {
+    background-color: #A6F189;
+}
+
+.note.blue {
+    background-color: #99CBFA;
+}
+
+.note.red {
+    background-color: #FD9B88;
+}
+
+.note .title {
+    font-size: 24px;
+    margin-bottom: 1em;
+}
+
+.delete {
+    width: 20px;
+    height: 20px;
+}
+
+.note .items li {
+    margin-bottom: 1em;
+}
+
+.note input[type="checkbox"] {
+    margin: 0 0.4em 0 0;
+    max-width: 20px;
+}
+
+.note .color-chooser li {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #444;
+    margin: 0 4px 0 0;
+}
+
+.note .color-chooser li.yellow {
+    background-color: #EDF736;
+}
+
+.note .color-chooser li.green {
+    background-color: #5FCE99;
+}
+
+.note .color-chooser li.blue {
+    background-color: #369AF7;
+}
+
+.note .color-chooser li.red {
+    background-color: #FF7B62;
+}
+
+button {
+    padding: 0;
+    color: #fff;
+    border-radius: 3px;
+    border: none;
+    background: rgba(73,155,234,1);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(73,155,234,1)), color-stop(0%, rgba(73,155,234,1)), color-stop(100%, rgba(0,62,128,1)));
+    background: -webkit-linear-gradient(top, rgba(73,155,234,1) 0%, rgba(73,155,234,1) 0%, rgba(0,62,128,1) 100%);
+    background: linear-gradient(to bottom, rgba(73,155,234,1) 0%, rgba(73,155,234,1) 0%, rgba(0,62,128,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#003e80', GradientType=0 );
+}
+
+button:active {
+    background: rgba(73,155,234,1);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(73,155,234,1)), color-stop(0%, rgba(0,62,128,1)), color-stop(100%, rgba(73,155,234,1)));
+    background: -webkit-linear-gradient(top, rgba(73,155,234,1) 0%, rgba(0,62,128,1) 0%, rgba(73,155,234,1) 100%);
+    background: linear-gradient(to bottom, rgba(73,155,234,1) 0%, rgba(0,62,128,1) 0%, rgba(73,155,234,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#499bea', GradientType=0 );
+}
+
+.add-item {
+    width: 26px;
+    height: 26px;
+}
