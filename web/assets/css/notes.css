@@ -1,3 +1,8 @@
+html, body, .container {
+	width: 100%;
+	overflow: hidden;
+}
+
 body,
 input {
     font-family: 'Shadows Into Light Two', 'Fjord One', 'Arial', 'Verdana', serif;
@@ -10,16 +15,13 @@ input {
     position: absolute;
 }
 
-.container {
-    width: 100%;
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 2em 1em;
-}
 
 .note {
     padding: 2.6em 2.2em 2.6em 2.2em;
     position: relative;
+	top:50%;
+	left:40%;
+	width: 666px;
 }
 
 .note.yellow {

@@ -28,35 +28,22 @@
     <link rel="stylesheet" href="/assets/css/toast.css" />
     <link rel="stylesheet" href="/assets/css/notes.css" />
 </head>
-<body>
-    <div class="container"></div>
-    <script type="text/javascript" src="/assets/js/lib/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="/assets/js/lib/handlebars-v2.0.0.js"></script>
-    <!--<script type="text/javascript" src="/assets/js/template-manager.js"></script>-->
-    
-    <script type="text/javascript">
-        $(function () {
-            //this function will be executed when the DOM is ready
-            
-            //initialize the template manager
-            //TemplateManager.init();
-            
-            //initialize toast service
-            //Toast.init();
-            
-            //initialize the notes application
-            //NotesApp.init();
-        });
-    </script>
-    <script id="note-template" type="text/x-handlebars-template">
-        <div data-color="{{color}}" class="note {{color}}">
+<body ng-app="NotesApp" ng-controller="GetNoteCtrl">
+    <div class="container">
+        <div class="note {{color}}">
             <span class="pin sprite"></span>
-            <input class="title" data-role="title" name="title" type="text" value="{{title}}" placeholder="Title..." />
-            <ul class="items">
-            {{#each items}}
-                {{> item}}
-            {{/each}}
-            </ul>
+
+            <input class="title" name="title" type="text" value="{{title}}" placeholder="Title..." />
+            
+            <div ng-repeat="item in items" class="divider">
+
+                
+                <input name="isDone" type="checkbox" ng-checked="item.isDone" value="{{item.id}}" ng-click="changeState(item.id, true)">
+                <input name="label" type="text" ng-model="item.label">
+                
+                <!--<div><span ng-bind="item.id"> </span><span ng-bind="item.label"> </span><span ng-bind="item.isDone"> </span></div>-->
+            </div>
+
             <button id="add-item" class="add-item" title="Add item">+</button>
             <ul class="color-chooser">
                 <li data-color="yellow" class="yellow faded" title="Yellow"></li>
@@ -65,14 +52,15 @@
                 <li data-color="red" class="red faded" title="Red"></li>
             </ul>
         </div>
-    </script>
+    </div>    
+    <!--
     <script id="item-partial" type="text/x-handlebars-template">
         <li data-id="{{id}}">
             <input type="checkbox" {{#if isDone}}checked{{/if}} />
             <input type="text" data-role="item" value="{{label}}" placeholder="Add item..." />
             <a href="#" class="delete sprite faded FIR" title="Delete item">Delete item</a>
         </li>
-    </script>
+    </script>-->
     <script type="text/javascript" src="/folder_components/angular/angular.js"></script>
     <script type="text/javascript" src="/assets/js/notes.js"></script>
     <script type="text/javascript" src="/assets/js/toast.js"></script>
