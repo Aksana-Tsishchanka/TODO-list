@@ -23,18 +23,36 @@ var notesApp = angular.module('NotesApp',[]);
             $scope.changeState = function(id, isDone) {
                 console.log(id);
                 $http({
-                    url: 'note/'+ id +'/updateItemIsDone',
+                    url: 'note/' + id + '/updateItemIsDone',
                     method: "POST",
-                    data: { id: id, isDone: true}
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: "isDone=" + !isDone
                 })
                 .then(function(response) {
                     // success
                     console.log(response);
-                }, 
-                function(response) { // optional
-                // failed
+                	}, 
+                	function(response) { // optional
+                	// failed
                     }
                 );
+            }
+
+            $scope.changeTitle = function(title) {
+            	$http({
+                    url: 'note/updateTitle',
+                    method: "POST",
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: "title=" + title 
+                })
+                .then(function(response) {
+                    // success
+                    console.log(response);
+                	}, 
+                	function(response) { // optional
+                	// failed
+                    }
+                );	
             }
     }]); 
 

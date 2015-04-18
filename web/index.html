@@ -33,12 +33,12 @@
         <div class="note {{color}}">
             <span class="pin sprite"></span>
 
-            <input class="title" name="title" type="text" value="{{title}}" placeholder="Title..." />
+            <input class="title" name="title" type="text" ng-model="title" placeholder="Title..."  />
             
             <div ng-repeat="item in items" class="divider">
 
                 
-                <input name="isDone" type="checkbox" ng-checked="item.isDone" value="{{item.id}}" ng-click="changeState(item.id, true)">
+                <input name="isDone" type="checkbox" ng-model="item.isDone" ng-click="changeState(item.id, item.isDone)">
                 <input name="label" type="text" ng-model="item.label">
                 
                 <!--<div><span ng-bind="item.id"> </span><span ng-bind="item.label"> </span><span ng-bind="item.isDone"> </span></div>-->
