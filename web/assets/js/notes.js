@@ -1,6 +1,8 @@
-var notesApp = angular.module('NotesApp',[]);
+var notesApp = angular.module('NotesApp', ['ToastApp']);
 
-    notesApp.controller('GetNoteCtrl', ['$scope','$http', function($scope, $http) {
+
+
+    notesApp.controller('GetNoteCtrl', ['$scope','$http', 'ToastAPI', function($scope, $http, ToastAPI) {
         var note = [];
         $http.get('note/get').then(
             function(response){
@@ -30,10 +32,12 @@ var notesApp = angular.module('NotesApp',[]);
                 })
                 .then(function(response) {
                     // success
+                    ToastAPI.success("updateItem");
                     console.log(response);
                 	}, 
                 	function(response) { // optional
                 	// failed
+                	ToastAPI.error("failed");
                     }
                 );
             }
@@ -70,40 +74,27 @@ var notesApp = angular.module('NotesApp',[]);
 			link: function (scope, elm, attrs, ctrl) {
 					//elm.unbind('input').unbind('keydown').unbind('change');
 					elm.bind('blur', function() {
-                		console.log(elm.val());
-                		
-                		var newValue = elm.val();
-                		console.log("NewValue " + newValue);
+                		var value = elm.val();
 
-                		var attrName = attrs.name;
-                		console.log(attrName);
+               			$http({
+               				url: "/note/updateTitle",
+               				method: "POST",
+               				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+               				data: "value=" + value
 
-                		var notePost = {};
-
-                		if (attrName === "title") {
-							notePost.url = "/note/updateTitle";
-							notePost.method = "POST";
-							notePost.headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-							notePost.data =  "value=" + newValue;              			
-                		}
-                		else if (attrName === "label") {
-                			notePost.url = "/note/:id/updateItem";
-                			notePost.data = "value=" + newValue;
-                		};
-
-               			$http(notePost)
+               				})
                 			.then(function(response) {
                     			// success
-                    		console.log(response);
+                    			console.log(response);
                 			}, 
                 			function(response) { // optional
                 			// failed
                     		}
                 		); 		
 						
-                });         
+                	});         
+				}	
 			}
-		}
 	}]);
 
  

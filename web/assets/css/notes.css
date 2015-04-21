@@ -1,6 +1,6 @@
-html, body, .container {
+html, body{
 	width: 100%;
-	overflow: hidden;
+	overflow: auto;
 }
 
 body,
@@ -18,10 +18,10 @@ input {
 
 .note {
     padding: 2.6em 2.2em 2.6em 2.2em;
-    position: relative;
-	top:50%;
-	left:40%;
-	width: 666px;
+	max-width: 666px;
+	margin-left: auto;
+	margin-right: auto;
+	
 }
 
 .note.yellow {

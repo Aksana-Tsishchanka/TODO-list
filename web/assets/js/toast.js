@@ -1,2 +1,51 @@
-// TODO define the Toast module here
-// var Toast = ...
+var toastApp = angular.module('ToastApp',['ngAnimate']);
+
+toastApp.factory('ToastAPI', function() {
+	return {
+		status: null,
+		message: null,
+		success: function(msg) {
+			this.status = "success";
+			this.message = msg;
+		},
+		error: function(msg) {
+			this.status = "error";
+			this.message = msg;
+		},
+		clear: function(msg) {
+			this.status = null;
+			this.message = null;
+		}	
+	}
+});
+
+toastApp.directive('toast', [ function() {
+	return {
+		restrict: 'E',
+		scope: {},
+		replace: true,
+		controller: function($scope, ToastAPI, $interval) {
+			$scope.show = false;
+			$scope.api = ToastAPI;
+
+			$scope.$watch('api.status', toggledDisplay);
+			$scope.$watch('api.message', toggledDisplay);
+
+			
+
+			function toggledDisplay() {
+				$scope.show = !!($scope.api.status && $scope.api.message);
+			}
+			
+			$interval(function () {
+				$scope.show = false;
+				$scope.api.clear();
+			}, 3000);
+
+		},
+		template: '<div class="toastComponent toast-{{api.status}}" ng-show="show">' +'  {{api.message}}' + '</div>' 
+		}
+	
+}]);
+
+

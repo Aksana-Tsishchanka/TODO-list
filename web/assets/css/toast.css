@@ -1,14 +1,33 @@
-.toast {
-    -webkit-transition: opacity 400ms;
+.toastComponent .ng-hide-remove {
+    -moz-transition: all 5s linear;
+	-ms-transition: all 5s linear;
+	-o-transition: all 5s linear;
+	transition: all 5s linear;
+	
+	/*
+	-webkit-transition: opacity 400ms;
     transition: opacity 400ms;
 
     color: #000;
     
     background-color: #aaa;
-
+	opacity: 1;
     font-size: .95em;
     padding: 10px 16px;
+	*/
 }
+
+.toastComponent {
+	position: fixed;
+	bottom: 0;
+	right: 2%;
+	display: inline-block;
+	border-radius: 3px;
+	background-color: green;
+	margin: 2.6em 2.6em
+}
+
+
 
 .toast.error {
     background-color: #f40000;
