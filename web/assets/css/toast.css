@@ -1,30 +1,28 @@
-.toastComponent .ng-hide-remove {
-    -moz-transition: all 5s linear;
-	-ms-transition: all 5s linear;
-	-o-transition: all 5s linear;
-	transition: all 5s linear;
-	
-	/*
-	-webkit-transition: opacity 400ms;
-    transition: opacity 400ms;
 
-    color: #000;
-    
-    background-color: #aaa;
-	opacity: 1;
-    font-size: .95em;
-    padding: 10px 16px;
-	*/
-}
 
 .toastComponent {
 	position: fixed;
 	bottom: 0;
 	right: 2%;
+	height: 100px;
+	width: 100px;
+	text-align: center;
 	display: inline-block;
 	border-radius: 3px;
-	background-color: green;
-	margin: 2.6em 2.6em
+	background-color: #908C89;
+	vertical-align: middle;
+}
+
+.toastComponent.toast-success {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.4s, visibility 0.4s;
+}
+
+.toastComponent.ng-hide {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.4s, visibility 0.4s;
 }
 
 

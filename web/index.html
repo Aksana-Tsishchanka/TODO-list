@@ -39,7 +39,7 @@
 
                 
                 <input name="isDone" type="checkbox" ng-model="item.isDone" ng-click="changeState(item.id, item.isDone)">
-                <input name="label" type="text" ng-model="item.label">
+                <input name="label" item-title="item" type="text" ng-model="item.label">
                 
                 <!--<div><span ng-bind="item.id"> </span><span ng-bind="item.label"> </span><span ng-bind="item.isDone"> </span></div>-->
             </div>

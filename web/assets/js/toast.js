@@ -35,15 +35,16 @@ toastApp.directive('toast', [ function() {
 
 			function toggledDisplay() {
 				$scope.show = !!($scope.api.status && $scope.api.message);
+				$scope.class = "show";
 			}
 			
 			$interval(function () {
 				$scope.show = false;
 				$scope.api.clear();
-			}, 3000);
+			}, 2500); 
 
 		},
-		template: '<div class="toastComponent toast-{{api.status}}" ng-show="show">' +'  {{api.message}}' + '</div>' 
+		template: '<div class="toastComponent toast-{{api.status}}" ng-show="show">' +' {{api.message}}' + '</div>' 
 		}
 	
 }]);
