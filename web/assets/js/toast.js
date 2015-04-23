@@ -28,12 +28,10 @@ toastApp.directive('toast', [ function() {
 			$scope.show = false;
 			$scope.api = ToastAPI;
 
-			$scope.$watch('api.status', toggledDisplay);
-			$scope.$watch('api.message', toggledDisplay);
+			$scope.$watch('api.status', showToast);
+			$scope.$watch('api.message', showToast);
 
-			
-
-			function toggledDisplay() {
+			function showToast() {
 				$scope.show = !!($scope.api.status && $scope.api.message);
 				$scope.class = "show";
 			}

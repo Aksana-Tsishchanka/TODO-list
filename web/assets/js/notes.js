@@ -47,32 +47,52 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
             }
     }]); 
 
-    notesApp.directive("noteTitle", ["$http", function($http) {
+    function checkUpdatedValue(watchExpr, scope) {
+        scope.$watch(watchExpr, function(newValue, oldValue) {
+            console.log('oldValue=' + oldValue);
+            console.log('newValue=' + newValue);
+            if (newValue === oldValue) {
+                console.log(newValue === oldValue);
+                return true;
+            }
+            else {
+                console.log(newValue === oldValue);
+                return false;
+            }
+        });
+    };
+
+    notesApp.directive("noteTitle", ["$http","ToastAPI", function($http, ToastAPI ) {
         return {
             restrict: "A",
             link: function (scope, elm, attrs, ctrl) {
+                    
+                    console.log("status:"+ checkUpdatedValue("title", scope));
                     elm.bind('blur', function() {
-                        var value = elm.val();
+                        //var value = elm.val();
+                        //{
+                            $http({
+                                url: "/note/updateTitle",
+                                method: "POST",
+                                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                data: "value=" + value
 
-                        $http({
-                            url: "/note/updateTitle",
-                            method: "POST",
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                            data: "value=" + value
-
-                            })
-                            .then(function(response) {
-                                // success
-                                console.log(response);
-                            }, 
-                            function(response) { // optional
-                            // failed
-                            }
-                        );
-                        
+                                })
+                                .then(function(response) {
+                                    // success
+                                    ToastAPI.success("Title was changed")
+                                    console.log(response);
+                                }, 
+                                function(response) { // optional
+                                // failed
+                                    ToastAPI.error("Title was NOT changed")
+                                }
+                            );
+                        //}                  
                     });
                 }   
             }
+            
     }]);
     notesApp.directive("itemTitle", ["$http", function($http) {
         return {
