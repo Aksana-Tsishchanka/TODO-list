@@ -3,10 +3,12 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
 
     notesApp.controller('GetNoteCtrl', ['$scope','$http', 'ToastAPI', function($scope, $http, ToastAPI) {
         var note = [];
+        var initValue;
+        var currentValue;
+
         $http.get('note/get').then(
             function(response){
                 note = response.data;
-
                 $scope.color = note.color;
                 $scope.title = note.title;
 
@@ -20,6 +22,35 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
             function(errResponse) {
             console.error('Error while fetching notes');
             });
+
+            $scope.getValueOnFocus = function(value) {
+                initValue = value;
+                console.log("init:" + initValue);
+            }
+
+            $scope.getValueOnBlur = function(value) {
+                currentValue = value;
+                console.log("Cur" + currentValue);
+
+                if ( initValue !== currentValue ) {
+                    $http({
+                        url: "/note/updateTitle",
+                        method: "POST",
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        data: "value=" + currentValue
+                        })
+                        .then(function(response) {
+                        // success
+                            ToastAPI.success("Title was changed")
+                            console.log(response);
+                        }, 
+                        function(response) { // optional
+                        // failed
+                            ToastAPI.error("Title was NOT changed")
+                        }
+                    );
+                };
+            }
 
             $scope.changeState = function(id, isDone) {
                 console.log(id);
@@ -47,79 +78,84 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
             }
     }]); 
 
-    function checkUpdatedValue(watchExpr, scope) {
-        scope.$watch(watchExpr, function(newValue, oldValue) {
-            console.log('oldValue=' + oldValue);
-            console.log('newValue=' + newValue);
-            if (newValue === oldValue) {
-                console.log(newValue === oldValue);
-                return true;
-            }
-            else {
-                console.log(newValue === oldValue);
-                return false;
-            }
-        });
-    };
-
+/*
     notesApp.directive("noteTitle", ["$http","ToastAPI", function($http, ToastAPI ) {
         return {
             restrict: "A",
             link: function (scope, elm, attrs, ctrl) {
-                    
-                    console.log("status:"+ checkUpdatedValue("title", scope));
+                    var value;
+                    var oldValue;
+                    elm.bind('focus', function() {
+                        oldValue = elm.val();
+                        console.log("oldValue=" + oldValue);
+                    });
                     elm.bind('blur', function() {
-                        //var value = elm.val();
-                        //{
+                        value = elm.val();
+                        console.log("Value=" + value);
+                    });
+                    console.log(oldValue === value);
+
+                    if (oldValue !== value) {
+                        $http({
+                            url: "/note/updateTitle",
+                            method: "POST",
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                            data: "value=" + value
+                            })
+                            .then(function(response) {
+                            // success
+                                ToastAPI.success("Title was changed")
+                                console.log(response);
+                            }, 
+                            function(response) { // optional
+                                // failed
+                                ToastAPI.error("Title was NOT changed")
+                            });
+                    }
+                }
+            }   
+    }]);
+*/
+
+    notesApp.directive("itemTitle", ["$http", "ToastAPI", function($http, ToastAPI) {
+        return {
+            restrict: "A",
+            scope: {
+                id: "=",
+            },
+            link: function (scope, elm, attrs, ctrl) {
+                    var initValue;
+                    var currentValue;
+
+                    elm.bind('focus', function() {
+                        initValue = elm.val();
+                        console.log("oldValue " + initValue);
+                    });
+                    elm.bind('blur', function() {
+                        console.log(scope.$id);
+                        currentValue = elm.val();
+                        console.log("currentValue " + currentValue);
+
+                        console.log(initValue + " === " + currentValue );
+
+                        if (initValue !== currentValue) {
                             $http({
-                                url: "/note/updateTitle",
+                                url: "/note/" + scope.id + "/updateItem",
                                 method: "POST",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                                data: "value=" + value
+                                data: "value=" + currentValue
 
                                 })
                                 .then(function(response) {
                                     // success
-                                    ToastAPI.success("Title was changed")
-                                    console.log(response);
+                                    ToastAPI.success("Item was changed");
                                 }, 
-                                function(response) { // optional
+                                function(response) {
                                 // failed
-                                    ToastAPI.error("Title was NOT changed")
+                                ToastAPI.error("Item was NOT changed");
                                 }
                             );
-                        //}                  
-                    });
-                }   
-            }
-            
-    }]);
-    notesApp.directive("itemTitle", ["$http", function($http) {
-        return {
-            restrict: "A",
-            //scope: {
-              //item: "="
-            //},
-            link: function (scope, elm, attrs, ctrl) {
-                    elm.bind('blur', function() {
-                    console.log(scope.$id);
-                        var value = elm.val();
-                        $http({
-                            url: "/note/" + scope.item.id + "/updateItem",
-                            method: "POST",
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                            data: "value=" + value
-
-                            })
-                            .then(function(response) {
-                                // success
-                                console.log(response);
-                            }, 
-                            function(response) { // optional
-                            // failed
-                            }
-
-                        );
+                        };        
                         
                     });
                 }   
