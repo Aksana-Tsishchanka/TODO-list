@@ -37,17 +37,15 @@
 
             <div ng-repeat="item in items" class="divider">
                 <input name="isDone" type="checkbox" ng-model="item.isDone" ng-click="changeState(item.id, item.isDone)">
-                <input name="label" item-title id="item.id" type="text" ng-model="item.label">
-                
-                <!--<div><span ng-bind="item.id"> </span><span ng-bind="item.label"> </span><span ng-bind="item.isDone"> </span></div>-->
+                <input name="label" ng-class="{strike: item.isDone}"item-title id="item.id" type="text" ng-model="item.label" placeholder="Add item...">
             </div>
 
-            <button id="add-item" class="add-item" title="Add item">+</button>
-            <ul class="color-chooser">
-                <li data-color="yellow" class="yellow faded" title="Yellow"></li>
-                <li data-color="green" class="green faded" title="Green"></li>
-                <li data-color="blue" class="blue faded" title="Blue"></li>
-                <li data-color="red" class="red faded" title="Red"></li>
+            <button id="add-item" ng-click="addItem()" class="add-item" title="Add item">+</button>
+            <ul class="color-chooser" ng-click="changeColorNote($event)">
+                <li color="yellow" class="yellow faded" title="Yellow"></li>
+                <li color="green" class="green faded" title="Green"></li>
+                <li color="blue" class="blue faded" title="Blue"></li>
+                <li color="red" class="red faded" title="Red"></li>
             </ul>
         </div>
         <toast></toast>

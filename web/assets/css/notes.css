@@ -106,3 +106,7 @@ button:active {
     width: 26px;
     height: 26px;
 }
+
+.strike {
+    text-decoration: line-through;
+}

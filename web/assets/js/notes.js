@@ -21,46 +21,47 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
             }, 
             function(errResponse) {
             console.error('Error while fetching notes');
-            });
-
-            $scope.getValueOnFocus = function(value) {
-                initValue = value;
-                console.log("init:" + initValue);
             }
+        );
 
-            $scope.getValueOnBlur = function(value) {
-                currentValue = value;
-                console.log("Cur" + currentValue);
+        $scope.getValueOnFocus = function(value) {
+            initValue = value;
+            console.log("init:" + initValue);
+        }
 
-                if ( initValue !== currentValue ) {
-                    $http({
-                        url: "/note/updateTitle",
-                        method: "POST",
-                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                        data: "value=" + currentValue
-                        })
-                        .then(function(response) {
+        $scope.getValueOnBlur = function(value) {
+            currentValue = value;
+            console.log("Cur" + currentValue);
+
+            if ( initValue !== currentValue ) {
+                $http({
+                    url: "/note/updateTitle",
+                    method: "POST",
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: "value=" + currentValue
+                    })
+                    .then(function(response) {
                         // success
-                            ToastAPI.success("Title was changed")
-                            console.log(response);
+                        ToastAPI.success("Title was changed")
+                        console.log(response);
                         }, 
                         function(response) { // optional
-                        // failed
+                            // failed
                             ToastAPI.error("Title was NOT changed")
                         }
                     );
-                };
-            }
+            };
+        }
 
-            $scope.changeState = function(id, isDone) {
-                console.log(id);
-                $http({
-                    url: 'note/' + id + '/updateItemIsDone',
-                    method: "POST",
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    data: "isDone=" + !isDone
-                })
-                .then(function(response) {
+        $scope.changeState = function(id, isDone) {
+            console.log(id);
+            $http({
+                url: 'note/' + id + '/updateItemIsDone',
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: "isDone=" + !isDone
+            })
+            .then(function(response) {
                     // success
                     if (isDone) {
                         ToastAPI.success("Item was UNchecked");
@@ -69,13 +70,66 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
                         ToastAPI.success("Item was checked");
                     }
                        //console.log(response);
-                    }, 
-                    function(response) { // optional
+                }, 
+                function(response) { // optional
                     // failed
-                        ToastAPI.error("Item wasn't updated");
+                    ToastAPI.error("Item wasn't updated");
+                }
+                );
+        };
+
+        $scope.addItem = function() {
+                console.log("Add");
+                $http({
+                    url: "/note/newItem",
+                    method: "GET",
+                })
+                .then(function(response) {
+                    ToastAPI.success("Item was added");
+                    console.log("id: " + response.data.id);
+                    $scope.items.push(response.data);
+                },
+                function(response){
+                    ToastAPI.error("Item was not added");
+                });
+        };
+
+        $scope.changeColorNote = function(event) {
+            var defaultColor = "yellow";
+            var currentColor = $scope.color;
+
+            var clickedElem = event.target || event.srcElement;
+
+            var color = clickedElem.getAttribute("color");
+            //stop 
+            event.stopPropagation ? event.stopPropagation() : (event.cancelBubble=true);
+            
+            if (currentColor !== color  && color != null) {
+                currentColor = color;
+            }
+            else {
+                currentValue = defaultColor;
+            }
+
+            if (currentColor !== $scope.color) {
+                $http({
+                    url: "/note/updateColor",
+                    method: "POST",
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}, 
+                    data: "color=" + currentColor
+                })
+                .then(function(response) {
+                        console.log(response);
+                        ToastAPI.success("Color of Note was changed");
+                        $scope.color = currentColor;
+                    },
+                    function(response){
+                        ToastAPI.error("Color of Note was NOT added");
+                        $scope.color = defaultColor;
                     }
                 );
             }
+        }
     }]); 
 
 /*
@@ -132,7 +186,7 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
                         console.log("oldValue " + initValue);
                     });
                     elm.bind('blur', function() {
-                        console.log(scope.$id);
+                        console.log(scope.id);
                         currentValue = elm.val();
                         console.log("currentValue " + currentValue);
 
