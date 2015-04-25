@@ -38,6 +38,7 @@
             <div ng-repeat="item in items" class="divider">
                 <input name="isDone" type="checkbox" ng-model="item.isDone" ng-click="changeState(item.id, item.isDone)">
                 <input name="label" ng-class="{strike: item.isDone}"item-title id="item.id" type="text" ng-model="item.label" placeholder="Add item...">
+                <span class="delete" ng-click="removeItem(item)">X</span>
             </div>
 
             <button id="add-item" ng-click="addItem()" class="add-item" title="Add item">+</button>

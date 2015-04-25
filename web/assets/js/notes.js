@@ -129,7 +129,25 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
                     }
                 );
             }
+        };
+        $scope.removeItem = function(item) {
+            var index = $scope.items.indexOf(item);
+            var id = item.id;
+            console.log("id: " + id);
+            $http({
+                    url: "/note/" + id + "/delete",
+                    method: "POST",
+            })
+            .then(function(response) {
+                    ToastAPI.success("Item was deleted");
+                    $scope.items.splice(index, 1); 
+                },
+                function(response){
+                    ToastAPI.error("Item was NOT deleted");
+                }
+            );
         }
+
     }]); 
 
 /*
