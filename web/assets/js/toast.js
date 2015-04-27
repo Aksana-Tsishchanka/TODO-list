@@ -1,4 +1,4 @@
-var toastApp = angular.module('ToastApp',['ngAnimate']);
+var toastApp = angular.module('ToastApp',[]);
 
 toastApp.factory('ToastAPI', function() {
 	return {

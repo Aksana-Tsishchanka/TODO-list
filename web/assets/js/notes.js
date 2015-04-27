@@ -6,7 +6,7 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
         var initValue;
         var currentValue;
 
-        $http.get('note/get').then(
+        $http.get('note/get', { cache: false }).then(
             function(response){
                 note = response.data;
                 $scope.color = note.color;
@@ -35,7 +35,7 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
 
             if ( initValue !== currentValue ) {
                 $http({
-                    url: "/note/updateTitle",
+                    url: "/note/updateTitle?nocache=" + new Date().toISOString(),
                     method: "POST",
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: "value=" + currentValue
@@ -56,7 +56,7 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
         $scope.changeState = function(id, isDone) {
             console.log(id);
             $http({
-                url: 'note/' + id + '/updateItemIsDone',
+                url: 'note/' + id + '/updateItemIsDone?nocache=' + new Date().toISOString(),
                 method: "POST",
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: "isDone=" + !isDone
@@ -81,7 +81,7 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
         $scope.addItem = function() {
                 console.log("Add");
                 $http({
-                    url: "/note/newItem",
+                    url: "/note/newItem?nocache=" + new Date().toISOString(),
                     method: "GET",
                 })
                 .then(function(response) {
@@ -113,7 +113,7 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
 
             if (currentColor !== $scope.color) {
                 $http({
-                    url: "/note/updateColor",
+                    url: "/note/updateColor?nocache=" + new Date().toISOString(),
                     method: "POST",
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}, 
                     data: "color=" + currentColor
@@ -135,7 +135,7 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
             var id = item.id;
             console.log("id: " + id);
             $http({
-                    url: "/note/" + id + "/delete",
+                    url: "/note/" + id + "/delete?nocache=" + new Date().toISOString(),
                     method: "POST",
             })
             .then(function(response) {
@@ -149,45 +149,6 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
         }
 
     }]); 
-
-/*
-    notesApp.directive("noteTitle", ["$http","ToastAPI", function($http, ToastAPI ) {
-        return {
-            restrict: "A",
-            link: function (scope, elm, attrs, ctrl) {
-                    var value;
-                    var oldValue;
-                    elm.bind('focus', function() {
-                        oldValue = elm.val();
-                        console.log("oldValue=" + oldValue);
-                    });
-                    elm.bind('blur', function() {
-                        value = elm.val();
-                        console.log("Value=" + value);
-                    });
-                    console.log(oldValue === value);
-
-                    if (oldValue !== value) {
-                        $http({
-                            url: "/note/updateTitle",
-                            method: "POST",
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                            data: "value=" + value
-                            })
-                            .then(function(response) {
-                            // success
-                                ToastAPI.success("Title was changed")
-                                console.log(response);
-                            }, 
-                            function(response) { // optional
-                                // failed
-                                ToastAPI.error("Title was NOT changed")
-                            });
-                    }
-                }
-            }   
-    }]);
-*/
 
     notesApp.directive("itemTitle", ["$http", "ToastAPI", function($http, ToastAPI) {
         return {
@@ -212,7 +173,7 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
 
                         if (initValue !== currentValue) {
                             $http({
-                                url: "/note/" + scope.id + "/updateItem",
+                                url: "/note/" + scope.id + "/updateItem?nocache=" + new Date().toISOString(),
                                 method: "POST",
                                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                                 data: "value=" + currentValue

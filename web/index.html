@@ -31,8 +31,7 @@
 <body ng-app="NotesApp" ng-controller="GetNoteCtrl">
     <div class="container">
         <div class="note {{color}}">
-            <span class="pin sprite"></span>
-
+             <div class="pushpin"></div>
             <input class="title" name="title" type="text" ng-focus="getValueOnFocus(title)" ng-blur="getValueOnBlur(title)" ng-model="title"  placeholder="Title..."  />
 
             <div ng-repeat="item in items" class="divider">
@@ -51,17 +50,7 @@
         </div>
         <toast></toast>
     </div>    
-    <!--
-    <script id="item-partial" type="text/x-handlebars-template">
-        <li data-id="{{id}}">
-            <input type="checkbox" {{#if isDone}}checked{{/if}} />
-            <input type="text" data-role="item" value="{{label}}" placeholder="Add item..." />
-            <a href="#" class="delete sprite faded FIR" title="Delete item">Delete item</a>
-        </li>
-    </script>-->
-    <script type="text/javascript" src="/folder_components/angular/angular.js"></script>
-    <script type="text/javascript" src="/folder_components/angular-animate/angular-animate.js"></script>
-    
+    <script type="text/javascript" src="/folder_components/angular/angular.js"></script>  
     <script type="text/javascript" src="/assets/js/toast.js"></script>
     <script type="text/javascript" src="/assets/js/notes.js"></script>
     </body>

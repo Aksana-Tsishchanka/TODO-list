@@ -1,12 +1,29 @@
 html, body{
-	width: 100%;
-	overflow: auto;
+    width: 100%;
+    overflow: auto;
+}
+
+html {
+    background: url(../img/bg.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 body,
 input {
     font-family: 'Shadows Into Light Two', 'Fjord One', 'Arial', 'Verdana', serif;
     font-size: 16px;
+}
+.container {
+    max-width: 666px;
+    min-height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    -moz-box-shadow:    0 0 20px 2px #444;
+    -webkit-box-shadow: 0 0 20px 2px #444;
+    box-shadow: 0 0 20px 2px #444;
 }
 
 .FIR {
@@ -17,11 +34,11 @@ input {
 
 
 .note {
-    padding: 2.6em 2.2em 2.6em 2.2em;
-	max-width: 666px;
-	margin-left: auto;
-	margin-right: auto;
-	
+    padding: 0 2.2em 2.6em 2.2em;
+    max-width: 666px;
+    margin-left: auto;
+    margin-right: auto;
+    
 }
 
 .note.yellow {
@@ -110,3 +127,25 @@ button:active {
 .strike {
     text-decoration: line-through;
 }
+
+.faded {
+    opacity: 0.3;
+}
+
+.faded:hover {
+    transition-duration: 150ms;
+    -webkit-transition-duration: 150ms;
+    -moz-transition-duration: 150ms;
+    -o-transition-duration: 150ms;
+    transition-timing-function: ease-in;
+    opacity: 1;
+}
+.pushpin {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background:url(../img/pushpin.png) no-repeat;
+    height: 75px;
+    width: 80px;
+}
+
