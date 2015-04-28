@@ -25,28 +25,34 @@
     <link href='http://fonts.googleapis.com/css?family=Fjord+One' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two" />
 
+    <link rel="stylesheet" href="/assets/css/reset.css" />
     <link rel="stylesheet" href="/assets/css/toast.css" />
     <link rel="stylesheet" href="/assets/css/notes.css" />
 </head>
 <body ng-app="NotesApp" ng-controller="GetNoteCtrl">
+
     <div class="container">
         <div class="note {{color}}">
-             <div class="pushpin"></div>
-            <input class="title" name="title" type="text" ng-focus="getValueOnFocus(title)" ng-blur="getValueOnBlur(title)" ng-model="title"  placeholder="Title..."  />
+             <div>
+                 <div class="pushpin"></div>
+                 <input class="title" name="title" type="text" ng-focus="getValueOnFocus(title)" ng-blur="getValueOnBlur(title)" ng-model="title"  placeholder="Title..."  />
 
-            <div ng-repeat="item in items" class="divider">
-                <input name="isDone" type="checkbox" ng-model="item.isDone" ng-click="changeState(item.id, item.isDone)">
-                <input name="label" ng-class="{strike: item.isDone}"item-title id="item.id" type="text" ng-model="item.label" placeholder="Add item...">
-                <span class="delete" ng-click="removeItem(item)">X</span>
-            </div>
+                <div ng-repeat="item in items" class="divider">
+                    <input name="isDone" type="checkbox" ng-model="item.isDone" ng-click="changeState(item.id, item.isDone)">
+                    <input class="item" name="label" ng-class="{strike: item.isDone}"item-title id="item.id" type="text" ng-model="item.label" placeholder="Add item...">
+                    <div class="delete faded" ng-click="removeItem(item)"></div>
+                </div>
 
-            <button id="add-item" ng-click="addItem()" class="add-item" title="Add item">+</button>
-            <ul class="color-chooser" ng-click="changeColorNote($event)">
-                <li color="yellow" class="yellow faded" title="Yellow"></li>
-                <li color="green" class="green faded" title="Green"></li>
-                <li color="blue" class="blue faded" title="Blue"></li>
-                <li color="red" class="red faded" title="Red"></li>
-            </ul>
+                <button id="add-item" ng-click="addItem()" class="add-item" title="Add item">+</button>
+                <div class="color-container">
+                    <ul class="color-chooser" ng-click="changeColorNote($event)">
+                        <li color="yellow" class="yellow faded" title="Yellow"></li>
+                        <li color="green" class="green faded" title="Green"></li>
+                        <li color="blue" class="blue faded" title="Blue"></li>
+                        <li color="red" class="red faded" title="Red"></li>
+                    </ul>
+                </div>
+            </div>    
         </div>
         <toast></toast>
     </div>    

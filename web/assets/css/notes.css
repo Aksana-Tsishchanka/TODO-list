@@ -1,6 +1,5 @@
 html, body{
     width: 100%;
-    overflow: auto;
 }
 
 html {
@@ -34,26 +33,29 @@ input {
 
 
 .note {
-    padding: 0 2.2em 2.6em 2.2em;
+    padding: 0 2.2em 2em 2.2em;
     max-width: 666px;
     margin-left: auto;
     margin-right: auto;
-    
+    position: relative;
+}
+.item {
+
 }
 
-.note.yellow {
+.note.yellow, .yellow input {
     background-color: #EEF2A5;
 }
 
-.note.green {
+.note.green, .green input {
     background-color: #A6F189;
 }
 
-.note.blue {
+.note.blue, .blue input {
     background-color: #99CBFA;
 }
 
-.note.red {
+.note.red, .red input {
     background-color: #FD9B88;
 }
 
@@ -80,7 +82,7 @@ input {
     width: 15px;
     height: 15px;
     border: 1px solid #444;
-    margin: 0 4px 0 0;
+    margin: 0 0 0 0;
 }
 
 .note .color-chooser li.yellow {
@@ -122,6 +124,7 @@ button:active {
 .add-item {
     width: 26px;
     height: 26px;
+    margin-top: 2em;
 }
 
 .strike {
@@ -149,3 +152,51 @@ button:active {
     width: 80px;
 }
 
+input.title, input.item {
+    border: 0 solid #999999;
+    border: 0 solid #999999;
+    border-bottom: 1px solid #999999;
+    width: 100%;
+    text-overflow:ellipsis;
+    overflow:hidden;
+}
+
+input.item {
+    width:96%;
+}
+
+.divider {
+    display: table;
+    width: 100%;
+    margin-top: 1em;
+}
+
+.divider input, .delete {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.delete {
+    background: url(../img/delete-icon.png) no-repeat;
+    height: 20px;
+    width: 20px;
+}
+
+ul.color-chooser
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+ul.color-chooser li {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.color-container {
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+}
