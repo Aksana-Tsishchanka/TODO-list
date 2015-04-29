@@ -28,9 +28,10 @@
     <link rel="stylesheet" href="/assets/css/reset.css" />
     <link rel="stylesheet" href="/assets/css/toast.css" />
     <link rel="stylesheet" href="/assets/css/notes.css" />
+    <link rel="stylesheet" media="screen and (max-width: 769px)" href="/assets/css/small.css" />
+    <link rel="stylesheet" media="(-webkit-min-device-pixel-ratio: 1.5) and (min-resolution: 144dppx)" href="/assets/css/retina-styles.css" />
 </head>
 <body ng-app="NotesApp" ng-controller="GetNoteCtrl">
-
     <div class="container">
         <div class="note {{color}}">
              <div>
@@ -56,7 +57,7 @@
         </div>
         <toast></toast>
     </div>    
-    <script type="text/javascript" src="/folder_components/angular/angular.js"></script>  
+    <script type="text/javascript" src="/folder_components/angular/angular.js"></script>
     <script type="text/javascript" src="/assets/js/toast.js"></script>
     <script type="text/javascript" src="/assets/js/notes.js"></script>
     </body>

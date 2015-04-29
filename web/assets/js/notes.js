@@ -1,6 +1,5 @@
 var notesApp = angular.module('NotesApp', ['ToastApp']);
 
-
     notesApp.controller('GetNoteCtrl', ['$scope','$http', 'ToastAPI', function($scope, $http, ToastAPI) {
         var note = [];
         var initValue;
@@ -51,7 +50,7 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
                         }
                     );
             };
-        }
+        };
 
         $scope.changeState = function(id, isDone) {
             console.log(id);

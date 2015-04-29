@@ -23,6 +23,8 @@ input {
     -moz-box-shadow:    0 0 20px 2px #444;
     -webkit-box-shadow: 0 0 20px 2px #444;
     box-shadow: 0 0 20px 2px #444;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 .FIR {

@@ -1,0 +1,12 @@
+/*the style for the page under widths of 768 pixels.*/
+
+@media screen and (max-width: 767px) {
+    html {
+        background: none;
+        background-color: #3E1E0F;
+    }
+
+    .container {
+            width: 90%;
+    }
+}
