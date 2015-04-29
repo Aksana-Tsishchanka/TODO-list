@@ -158,19 +158,18 @@ input.title, input.item {
     border: 0 solid #999999;
     border: 0 solid #999999;
     border-bottom: 1px solid #999999;
-    width: 100%;
+    width: 94%;
     text-overflow:ellipsis;
     overflow:hidden;
 }
 
-input.item {
-    width:96%;
-}
 
 .divider {
     display: table;
     width: 100%;
     margin-top: 1em;
+    table-layout: auto;
+    white-space: nowrap;
 }
 
 .divider input, .delete {

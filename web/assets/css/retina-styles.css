@@ -1,13 +1,13 @@
-/* 1.5 dpr */
 @media 
 (-webkit-min-device-pixel-ratio: 1.5), 
-(min-resolution: 144dppx){ 
-    /* Retina-specific stuff here */
+(min-resolution: 144dpi){ 
     .delete {
-    	background-image: url(../img/hd/delete-icon.png);
+        background-image: url(../img/hd/delete-icon.png);
+        background-size: 20px 20px;
     }
 
     .pushpin {
-    	background-image:url(../img/hd/pushpin.png)
+        background-image:url(../img/hd/pushpin.png);
+         background-size: 80px 70px;
     }
 }
