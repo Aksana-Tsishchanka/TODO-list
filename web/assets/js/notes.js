@@ -16,21 +16,20 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
                 }
                 else {
                     $scope.items = note.items;
-                }
+                };
+                ToastAPI.success("Items of note was loaded");
             }, 
             function(errResponse) {
-            console.error('Error while fetching notes');
+                ToastAPI.error("Items of note was NOT loaded");
             }
         );
 
         $scope.getValueOnFocus = function(value) {
             initValue = value;
-            console.log("init:" + initValue);
         }
 
         $scope.getValueOnBlur = function(value) {
             currentValue = value;
-            console.log("Cur" + currentValue);
 
             if ( initValue !== currentValue ) {
                 $http({
@@ -42,9 +41,8 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
                     .then(function(response) {
                         // success
                         ToastAPI.success("Title was changed")
-                        console.log(response);
                         }, 
-                        function(response) { // optional
+                        function(response) { 
                             // failed
                             ToastAPI.error("Title was NOT changed")
                         }
@@ -68,7 +66,6 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
                     else {
                         ToastAPI.success("Item was checked");
                     }
-                       //console.log(response);
                 }, 
                 function(response) { // optional
                     // failed
@@ -78,14 +75,12 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
         };
 
         $scope.addItem = function() {
-                console.log("Add");
                 $http({
                     url: "/note/newItem?nocache=" + new Date().toISOString(),
                     method: "GET",
                 })
                 .then(function(response) {
                     ToastAPI.success("Item was added");
-                    console.log("id: " + response.data.id);
                     $scope.items.push(response.data);
                 },
                 function(response){
@@ -118,7 +113,6 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
                     data: "color=" + currentColor
                 })
                 .then(function(response) {
-                        console.log(response);
                         ToastAPI.success("Color of Note was changed");
                         $scope.color = currentColor;
                     },
@@ -132,7 +126,6 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
         $scope.removeItem = function(item) {
             var index = $scope.items.indexOf(item);
             var id = item.id;
-            console.log("id: " + id);
             $http({
                     url: "/note/" + id + "/delete?nocache=" + new Date().toISOString(),
                     method: "POST",
@@ -166,9 +159,6 @@ var notesApp = angular.module('NotesApp', ['ToastApp']);
                     elm.bind('blur', function() {
                         console.log(scope.id);
                         currentValue = elm.val();
-                        console.log("currentValue " + currentValue);
-
-                        console.log(initValue + " === " + currentValue );
 
                         if (initValue !== currentValue) {
                             $http({

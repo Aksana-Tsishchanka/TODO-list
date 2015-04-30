@@ -1,38 +1,36 @@
-
-
 .toastComponent {
-	position: fixed;
-	bottom: 0;
-	right: 2%;
-	height: 100px;
-	width: 100px;
-	text-align: center;
-	display: inline-block;
-	border-radius: 3px;
-	background-color: #908C89;
-	vertical-align: middle;
+    position: fixed;
+    bottom: 2%;
+    right: 4%;
+    padding: 2em 2em 2em 2em;
+    text-align: center;
+    border-radius: 3px;
+    background-color: #908C89;
+    font-size: 18px;
 }
 
-.toastComponent.toast-success {
+.toastComponent.toast-success, .toastComponent.toast-error {
     visibility: visible;
-    opacity: 1;
-    transition: opacity 0.4s, visibility 0.4s;
+    opacity: 0.8;
+    -webkit-transition-duration: 200ms;
+    -moz-transition-duration: 200ms;
+    -o-transition-duration: 200ms;
+    transition-timing-function: ease-in;
+}
+
+.toastComponent.toast-error {
+    background-color: #580000 ;
+    color: #FFF;
 }
 
 .toastComponent.ng-hide {
     visibility: hidden;
     opacity: 0;
-    transition: opacity 0.4s, visibility 0.4s;
+    
 }
-
-
 
 .toast.error {
     background-color: #f40000;
     color: #fff;
     font-weight: 700;
-}
-
-.toast.active {
-    
 }
