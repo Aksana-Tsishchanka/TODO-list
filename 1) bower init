@@ -1,4 +1,0 @@
-1) bower init
-2) bower install angular#1.2.26
-3) bower uninstall
-4) bower install angular-animate#1.2.26
